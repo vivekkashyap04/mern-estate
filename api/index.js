@@ -21,11 +21,11 @@ app.listen(3000,() => {
 })
 
 app.use('/api/user',userRouter);
-app.use('/api/user',authRouter);
+app.use('/api/auth',authRouter);
 
-app.use((req,res,err,next) => {
+app.use((err,req,res,next) => {
     const statusCode = err.statusCode || 500;
-    const message = err.message;
+    const message = err.message || 'Internal Server Eroor';
     return res.status(statusCode).json({
         success:false,
         message,
