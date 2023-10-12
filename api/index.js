@@ -21,4 +21,14 @@ app.listen(3000,() => {
 })
 
 app.use('/api/user',userRouter);
-app.use('/api/user',authRouter)
+app.use('/api/user',authRouter);
+
+app.use((req,res,err,next) => {
+    const statusCode = err.statusCode || 500;
+    const message = err.message;
+    return res.status(statusCode).json({
+        success:false,
+        message,
+        statusCode
+    })
+})
